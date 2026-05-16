@@ -1,0 +1,9 @@
+venv/
+venv_contract/
+__pycache__/
+*.pyc
+*.pyo
+.env
+generated/
+*.docx
+!근로계약서_양식.docx
