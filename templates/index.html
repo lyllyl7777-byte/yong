@@ -3,22 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>근로계약서 생성기</title>
+  <title>근로계약서 작성</title>
   <link rel="stylesheet" href="/static/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </head>
 <body>
-  <div class="container">
-    <h1>근로계약서 생성기</h1>
-    <p class="subtitle">경동TPR 근로계약서 작성 도우미</p>
 
-    <form action="/generate" method="post">
+  <!-- 작성 폼 -->
+  <div class="container" id="form-section">
+    <h1>근로계약서 작성</h1>
+    <p class="subtitle">내용을 입력하고 제출하면 PDF로 내려받을 수 있어요.</p>
 
-      <!-- 사업주 정보 -->
+    <form id="contract-form">
+
       <section>
-        <h2>■ 계약 당사자 — 사업주</h2>
+        <h2>사업주 정보</h2>
         <div class="grid-2">
           <div class="field">
-            <label>사업주 성명</label>
+            <label>사업주 이름</label>
             <input type="text" name="owner_name" placeholder="홍길동">
           </div>
           <div class="field">
@@ -28,12 +30,11 @@
         </div>
       </section>
 
-      <!-- 근로자 정보 -->
       <section>
-        <h2>■ 계약 당사자 — 근로자</h2>
+        <h2>근로자 정보</h2>
         <div class="grid-2">
           <div class="field">
-            <label>근로자 성명</label>
+            <label>근로자 이름</label>
             <input type="text" name="worker_name" placeholder="홍길동">
           </div>
           <div class="field">
@@ -41,144 +42,141 @@
             <input type="text" name="worker_id_no" placeholder="000000-0000000">
           </div>
           <div class="field">
-            <label>근로자 주소</label>
-            <input type="text" name="worker_address" placeholder="부산광역시 ...">
+            <label>주소</label>
+            <input type="text" name="worker_address" placeholder="부산광역시 사상구 ...">
           </div>
           <div class="field">
             <label>연락처</label>
             <input type="text" name="worker_phone" placeholder="010-0000-0000">
           </div>
           <div class="field">
-            <label>관계</label>
+            <label>관계 <span class="hint">(해당 시만 입력)</span></label>
             <input type="text" name="worker_relation" placeholder="예: 자녀">
           </div>
         </div>
       </section>
 
-      <!-- 제1조 -->
       <section>
-        <h2>제1조 근무장소 및 업무내용</h2>
+        <h2>제1조 — 근무장소 및 업무</h2>
         <div class="field">
-          <label>담당업무</label>
-          <input type="text" name="job_duties" placeholder="고무라벨 생산 등">
+          <label>맡을 업무</label>
+          <input type="text" name="job_duties" placeholder="고무라벨 생산 및 검수">
         </div>
       </section>
 
-      <!-- 제2조 -->
       <section>
-        <h2>제2조 근로계약기간</h2>
+        <h2>제2조 — 근로계약기간</h2>
         <div class="grid-2">
           <div class="field">
-            <label>계약 시작일</label>
+            <label>시작일</label>
             <input type="date" name="contract_start">
           </div>
           <div class="field">
-            <label>계약 종료일</label>
+            <label>종료일</label>
             <input type="date" name="contract_end">
           </div>
         </div>
         <div class="field checkbox-field">
           <input type="checkbox" name="no_fixed_term" id="no_fixed_term">
-          <label for="no_fixed_term">기간의 정함이 없음 (체크 시 위 날짜는 무시됩니다)</label>
+          <label for="no_fixed_term">기간 정함 없음</label>
         </div>
 
-        <div class="field">
+        <div class="field" style="margin-top:12px">
           <label>수습기간</label>
           <div class="radio-group">
-            <label><input type="radio" name="probation" value="none" checked> 없음</label>
-            <label><input type="radio" name="probation" value="has"> 있음</label>
+            <label><input type="radio" name="probation" value="none" checked> 없어요</label>
+            <label><input type="radio" name="probation" value="has"> 있어요</label>
           </div>
         </div>
-        <div class="grid-2 probation-detail" id="probation-detail" style="display:none">
+        <div class="grid-2" id="probation-detail" style="display:none; margin-top:8px">
           <div class="field">
-            <label>수습 개월 수</label>
+            <label>수습 기간 <span class="hint">(개월)</span></label>
             <input type="text" name="probation_months" placeholder="3">
           </div>
           <div class="field">
-            <label>수습 중 임금 (원)</label>
+            <label>수습 중 임금 <span class="hint">(원)</span></label>
             <input type="text" name="probation_wage" placeholder="2,000,000">
           </div>
         </div>
       </section>
 
-      <!-- 제3조 -->
       <section>
-        <h2>제3조 근로시간 및 휴게시간</h2>
+        <h2>제3조 — 근로시간 및 휴게시간</h2>
         <div class="grid-2">
           <div class="field">
-            <label>근로 시작 시간</label>
+            <label>근무 시작</label>
             <input type="time" name="work_start">
           </div>
           <div class="field">
-            <label>근로 종료 시간</label>
+            <label>근무 종료</label>
             <input type="time" name="work_end">
           </div>
           <div class="field">
-            <label>1일 근로시간 (시간)</label>
+            <label>하루 근로시간 <span class="hint">(시간)</span></label>
             <input type="number" name="daily_hours" placeholder="8" min="1" max="24">
           </div>
           <div class="field">
-            <label>1주 근로시간 (시간)</label>
+            <label>주간 근로시간 <span class="hint">(시간)</span></label>
             <input type="number" name="weekly_hours" placeholder="40" min="1" max="168">
           </div>
           <div class="field">
-            <label>휴게 시작 시간</label>
+            <label>휴게 시작</label>
             <input type="time" name="break_start">
           </div>
           <div class="field">
-            <label>휴게 종료 시간</label>
+            <label>휴게 종료</label>
             <input type="time" name="break_end">
           </div>
           <div class="field">
-            <label>주 근무일수 (일)</label>
+            <label>주 근무일수 <span class="hint">(일)</span></label>
             <input type="number" name="work_days_per_week" placeholder="5" min="1" max="7">
           </div>
           <div class="field">
-            <label>주휴일 (요일)</label>
+            <label>주휴일</label>
             <input type="text" name="weekly_holiday" placeholder="일">
           </div>
         </div>
       </section>
 
-      <!-- 제4조 -->
       <section>
-        <h2>제4조 임금</h2>
+        <h2>제4조 — 임금</h2>
         <div class="grid-2">
           <div class="field">
-            <label>기본급 (월, 원)</label>
+            <label>기본급 <span class="hint">(월, 원)</span></label>
             <input type="text" name="basic_wage" placeholder="2,000,000">
           </div>
           <div class="field">
-            <label>시급 (원)</label>
+            <label>시급 <span class="hint">(원)</span></label>
             <input type="text" name="hourly_wage" placeholder="10,030">
           </div>
           <div class="field">
-            <label>식대 (원)</label>
+            <label>식대 <span class="hint">(원)</span></label>
             <input type="text" name="meal_allowance" placeholder="100,000">
           </div>
           <div class="field">
-            <label>기타 수당 (원)</label>
+            <label>기타 수당 <span class="hint">(없으면 비워도 돼요)</span></label>
             <input type="text" name="other_allowance" placeholder="">
           </div>
           <div class="field">
-            <label>임금 합계 (월, 원)</label>
+            <label>임금 합계 <span class="hint">(월, 원)</span></label>
             <input type="text" name="total_wage" placeholder="2,100,000">
           </div>
           <div class="field">
-            <label>임금 지급일 (매월 몇 일)</label>
+            <label>지급일 <span class="hint">(매월 몇 일)</span></label>
             <input type="number" name="pay_day" placeholder="25" min="1" max="31">
           </div>
         </div>
-        <div class="field">
+
+        <div class="field" style="margin-top:12px">
           <label>지급 방법</label>
           <div class="radio-group">
             <label><input type="radio" name="pay_method" value="direct" checked> 직접지급</label>
             <label><input type="radio" name="pay_method" value="bank"> 통장입금</label>
           </div>
         </div>
-        <div class="grid-2 bank-detail" id="bank-detail" style="display:none">
+        <div class="grid-2" id="bank-detail" style="display:none; margin-top:8px">
           <div class="field">
-            <label>은행명</label>
+            <label>은행</label>
             <input type="text" name="bank_name" placeholder="국민은행">
           </div>
           <div class="field">
@@ -188,9 +186,9 @@
         </div>
       </section>
 
-      <!-- 제6조 -->
       <section>
-        <h2>제6조 사회보험</h2>
+        <h2>제6조 — 사회보험</h2>
+        <p class="section-desc">해당하는 항목을 모두 선택해주세요.</p>
         <div class="checkbox-group">
           <label><input type="checkbox" name="ins_employment" checked> 고용보험</label>
           <label><input type="checkbox" name="ins_industrial" checked> 산재보험</label>
@@ -199,23 +197,21 @@
         </div>
       </section>
 
-      <!-- 제7조 -->
       <section>
-        <h2>제7조 기타</h2>
+        <h2>제7조 — 퇴직금 및 특약</h2>
         <div class="field">
           <label>퇴직금</label>
           <div class="radio-group">
-            <label><input type="radio" name="severance" value="yes"> 해당</label>
-            <label><input type="radio" name="severance" value="no" checked> 미해당</label>
+            <label><input type="radio" name="severance" value="yes"> 해당해요</label>
+            <label><input type="radio" name="severance" value="no" checked> 해당 안 돼요</label>
           </div>
         </div>
-        <div class="field">
-          <label>특약사항</label>
-          <textarea name="special_terms" rows="3" placeholder="특약사항이 있는 경우 입력하세요"></textarea>
+        <div class="field" style="margin-top:12px">
+          <label>특약사항 <span class="hint">(없으면 비워도 돼요)</span></label>
+          <textarea name="special_terms" rows="3" placeholder="특약사항을 입력해주세요"></textarea>
         </div>
       </section>
 
-      <!-- 계약체결일 -->
       <section>
         <h2>계약체결일</h2>
         <div class="grid-3">
@@ -235,27 +231,206 @@
       </section>
 
       <div class="submit-area">
-        <button type="submit">근로계약서 생성 (DOCX 다운로드)</button>
+        <button type="button" id="preview-btn">미리보기</button>
+        <button type="button" id="docx-btn" class="secondary">DOCX 내려받기</button>
       </div>
 
     </form>
   </div>
 
+  <!-- 미리보기 모달 -->
+  <div id="preview-modal" style="display:none">
+    <div class="modal-overlay" id="modal-overlay"></div>
+    <div class="modal-box">
+      <div class="modal-header">
+        <span>계약서 미리보기</span>
+        <button type="button" id="close-modal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div id="contract-preview"></div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="pdf-btn">제출하기 (PDF 내려받기)</button>
+        <button type="button" id="close-modal2" class="secondary">닫기</button>
+      </div>
+    </div>
+  </div>
+
   <script>
-    // 수습기간 토글
+    // ── 토글 ──────────────────────────────────────────────
     document.querySelectorAll('[name="probation"]').forEach(el => {
       el.addEventListener('change', () => {
         document.getElementById('probation-detail').style.display =
           el.value === 'has' && el.checked ? 'grid' : 'none';
       });
     });
-
-    // 통장입금 토글
     document.querySelectorAll('[name="pay_method"]').forEach(el => {
       el.addEventListener('change', () => {
         document.getElementById('bank-detail').style.display =
           el.value === 'bank' && el.checked ? 'grid' : 'none';
       });
+    });
+
+    // ── 폼 데이터 수집 ───────────────────────────────────
+    function getFormData() {
+      const f = document.getElementById('contract-form');
+      const d = {};
+      new FormData(f).forEach((v, k) => { d[k] = v; });
+      ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
+        d[k] = f.querySelector(`[name="${k}"]`).checked;
+      });
+      d.probation_none = d.probation === 'none';
+      d.pay_direct = d.pay_method === 'direct';
+      d.pay_bank = d.pay_method === 'bank';
+      d.severance_yes = d.severance === 'yes';
+      d.severance_no = d.severance === 'no';
+      return d;
+    }
+
+    const CHK = '■', UNCHK = '□';
+    function chk(bool) { return bool ? CHK : UNCHK; }
+
+    // ── 계약서 HTML 생성 ──────────────────────────────────
+    function buildPreviewHTML(d) {
+      const insLine = [
+        `${chk(d.ins_employment)} 고용보험`,
+        `${chk(d.ins_industrial)} 산재보험`,
+        `${chk(d.ins_pension)} 국민연금`,
+        `${chk(d.ins_health)} 건강보험`,
+      ].join('   ');
+
+      const probLine = d.probation_none
+        ? `${CHK} 없음   ${UNCHK} 있음`
+        : `${UNCHK} 없음   ${CHK} 있음 (${d.probation_months||''}개월, 수습 중 임금: ${d.probation_wage||''}원)`;
+
+      const periodLine = `${d.contract_start||''} 부터  ${d.contract_end||''} 까지  ${chk(d.no_fixed_term)} 기간의 정함이 없음`;
+
+      const payLine = `${chk(d.pay_direct)} 직접지급   ${chk(d.pay_bank)} 통장입금  (은행명: ${d.bank_name||''}, 계좌번호: ${d.account_no||''})`;
+
+      return `
+<div class="doc-wrap">
+  <h1 class="doc-title">근 로 계 약 서</h1>
+  <p class="doc-sub">(근로기준법 제17조에 따른 서면 근로계약)</p>
+
+  <p class="doc-section-title">■ 계약 당사자</p>
+  <table class="doc-table">
+    <tr><td class="lbl">사업주 성명</td><td>${d.owner_name||''}</td><td class="lbl">사업자등록번호</td><td>${d.business_reg_no||''}</td></tr>
+    <tr><td class="lbl">사업장명</td><td>경동</td><td class="lbl">업종</td><td>고무라벨 제조업</td></tr>
+    <tr><td class="lbl">사업장 주소</td><td colspan="3">부산광역시 사상구</td></tr>
+    <tr><td class="lbl">근로자 성명</td><td>${d.worker_name||''}</td><td class="lbl">주민등록번호</td><td>${d.worker_id_no||''}</td></tr>
+    <tr><td class="lbl">근로자 주소</td><td colspan="3">${d.worker_address||''}</td></tr>
+    <tr><td class="lbl">연락처</td><td>${d.worker_phone||''}</td><td class="lbl">관계</td><td>${d.worker_relation||''}</td></tr>
+  </table>
+
+  <p class="doc-article">제1조 【근무장소 및 업무내용】</p>
+  <table class="doc-table">
+    <tr><td class="lbl">근무장소</td><td>부산광역시 사상구 (경동TPR 사업장)</td></tr>
+    <tr><td class="lbl">담당업무</td><td>${d.job_duties||''}</td></tr>
+  </table>
+
+  <p class="doc-article">제2조 【근로계약기간】</p>
+  <table class="doc-table">
+    <tr><td class="lbl">계약기간</td><td>${periodLine}</td></tr>
+    <tr><td class="lbl">수습기간</td><td>${probLine}</td></tr>
+  </table>
+
+  <p class="doc-article">제3조 【근로시간 및 휴게시간】</p>
+  <table class="doc-table">
+    <tr><td class="lbl">소정근로시간</td><td>${d.work_start||''} ~ ${d.work_end||''}  (1일 ${d.daily_hours||''}시간,  1주 ${d.weekly_hours||''}시간)</td></tr>
+    <tr><td class="lbl">휴게시간</td><td>${d.break_start||''} ~ ${d.break_end||''}</td></tr>
+    <tr><td class="lbl">근무일/휴일</td><td>매주 ${d.work_days_per_week||''}일 근무 / 주휴일: 매주 ${d.weekly_holiday||''}요일</td></tr>
+  </table>
+
+  <p class="doc-article">제4조 【임금】</p>
+  <table class="doc-table">
+    <tr><td class="lbl">기본급</td><td>월  금 ${d.basic_wage||''}원  (시급: ${d.hourly_wage||''}원)</td></tr>
+    <tr><td class="lbl">각종 수당</td><td>식대: ${d.meal_allowance||''}원 /  기타: ${d.other_allowance||''}원</td></tr>
+    <tr><td class="lbl">임금 합계</td><td>월  금 ${d.total_wage||''}원</td></tr>
+    <tr><td class="lbl">임금 지급일</td><td>매월 ${d.pay_day||''}일  (지급일이 휴일인 경우 전일 지급)</td></tr>
+    <tr><td class="lbl">지급 방법</td><td>${payLine}</td></tr>
+  </table>
+  <p class="doc-note">※ 최저임금(2025년: 시간당 10,030원) 이상 지급 필수</p>
+
+  <p class="doc-article">제5조 【연차유급휴가】</p>
+  <p class="doc-text">연차유급휴가는 근로기준법에서 정하는 바에 따라 부여한다.</p>
+  <p class="doc-text">&bull; 1년 미만 근무: 매 1개월 개근 시 1일 (최대 11일)</p>
+  <p class="doc-text">&bull; 1년 이상 근무: 15일 (이후 2년마다 1일 가산, 최대 25일)</p>
+
+  <p class="doc-article">제6조 【사회보험 적용】</p>
+  <p class="doc-text">${insLine}</p>
+  <p class="doc-note">※ 해당 사항에 ✓ 표시 (가족 근로자의 경우 고용보험 적용 여부 사전 확인 요망)</p>
+
+  <p class="doc-article">제7조 【기타】</p>
+  <table class="doc-table">
+    <tr><td class="lbl">퇴직금</td><td>${chk(d.severance_yes)} 해당  ${chk(d.severance_no)} 미해당  (1주 15시간 이상, 1년 이상 근무 시 해당)</td></tr>
+    <tr><td class="lbl">특약사항</td><td>${d.special_terms||''}</td></tr>
+  </table>
+
+  <p class="doc-text" style="margin-top:14px">본 계약서는 근로기준법 제17조에 따라 작성하며, 2부를 작성하여 사업주와 근로자가 각 1부씩 보관합니다.</p>
+  <p class="doc-text">위와 같이 근로계약을 체결하고, 사업주와 근로자는 각자 서명(또는 날인)합니다.</p>
+  <p class="doc-text" style="margin-top:10px">계약체결일: ${d.contract_year||'　　'}년 ${d.contract_month||'　'}월 ${d.contract_day||'　'}일</p>
+
+  <table class="doc-table sign-table" style="margin-top:18px">
+    <tr><td class="lbl center">사  업  주</td><td class="lbl center">근  로  자</td></tr>
+    <tr>
+      <td>성명: ${d.owner_name||'　　　　　　'}　　(서명 또는 날인)</td>
+      <td>성명: ${d.worker_name||'　　　　　　'}　　(서명 또는 날인)</td>
+    </tr>
+    <tr><td>주소:　</td><td>주소: ${d.worker_address||''}</td></tr>
+    <tr><td>연락처:　</td><td>연락처: ${d.worker_phone||''}</td></tr>
+  </table>
+</div>`;
+    }
+
+    // ── 미리보기 열기 ─────────────────────────────────────
+    document.getElementById('preview-btn').addEventListener('click', () => {
+      const d = getFormData();
+      document.getElementById('contract-preview').innerHTML = buildPreviewHTML(d);
+      document.getElementById('preview-modal').style.display = 'flex';
+    });
+
+    // ── 모달 닫기 ─────────────────────────────────────────
+    ['close-modal','close-modal2','modal-overlay'].forEach(id => {
+      document.getElementById(id).addEventListener('click', () => {
+        document.getElementById('preview-modal').style.display = 'none';
+      });
+    });
+
+    // ── PDF 내보내기 ──────────────────────────────────────
+    document.getElementById('pdf-btn').addEventListener('click', () => {
+      const d = getFormData();
+      const worker = d.worker_name || '근로자';
+      const element = document.getElementById('contract-preview');
+      html2pdf().set({
+        margin: [10, 12, 10, 12],
+        filename: `근로계약서_${worker}.pdf`,
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }).from(element).save();
+    });
+
+    // ── DOCX 내려받기 (서버 POST) ─────────────────────────
+    document.getElementById('docx-btn').addEventListener('click', () => {
+      const f = document.getElementById('contract-form');
+      const tmp = document.createElement('form');
+      tmp.method = 'POST';
+      tmp.action = '/generate';
+      new FormData(f).forEach((v, k) => {
+        const inp = document.createElement('input');
+        inp.type = 'hidden'; inp.name = k; inp.value = v;
+        tmp.appendChild(inp);
+      });
+      ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
+        if (f.querySelector(`[name="${k}"]`).checked) {
+          const inp = document.createElement('input');
+          inp.type = 'hidden'; inp.name = k; inp.value = 'on';
+          tmp.appendChild(inp);
+        }
+      });
+      document.body.appendChild(tmp);
+      tmp.submit();
+      document.body.removeChild(tmp);
     });
   </script>
 </body>
