@@ -9,305 +9,360 @@
 </head>
 <body>
 
-  <!-- 작성 폼 -->
-  <div class="container" id="form-section">
-    <h1>근로계약서 작성</h1>
-    <p class="subtitle">내용을 입력하고 제출하면 PDF로 내려받을 수 있어요.</p>
+<div class="page-wrap">
+  <div class="logo">근로계약서</div>
 
-    <form id="contract-form">
+  <form id="contract-form" class="form-container">
 
-      <section>
-        <h2>사업주 정보</h2>
-        <div class="grid-2">
-          <div class="field">
-            <label>사업주 이름</label>
-            <input type="text" name="owner_name" placeholder="홍길동">
-          </div>
-          <div class="field">
-            <label>사업자등록번호</label>
-            <input type="text" name="business_reg_no" placeholder="000-00-00000">
-          </div>
+    <!-- 사업주 정보 -->
+    <div class="card">
+      <div class="card-title">사업주 정보</div>
+      <div class="field-row">
+        <span class="field-icon">🏢</span>
+        <span class="field-label">사업주 이름</span>
+        <input class="field-input" type="text" name="owner_name" placeholder="홍길동">
+      </div>
+      <div class="field-row">
+        <span class="field-icon">🔢</span>
+        <span class="field-label">사업자번호</span>
+        <input class="field-input" type="text" name="business_reg_no" placeholder="000-00-00000">
+      </div>
+    </div>
+
+    <!-- 근로자 정보 -->
+    <div class="card">
+      <div class="card-title">근로자 정보</div>
+      <div class="field-row">
+        <span class="field-icon">👤</span>
+        <span class="field-label">근로자 이름</span>
+        <input class="field-input" type="text" name="worker_name" placeholder="홍길동">
+      </div>
+      <div class="field-row">
+        <span class="field-icon">🪪</span>
+        <span class="field-label">주민등록번호</span>
+        <input class="field-input" type="text" name="worker_id_no" placeholder="000000-0000000">
+      </div>
+      <div class="field-row">
+        <span class="field-icon">📍</span>
+        <span class="field-label">주소</span>
+        <input class="field-input" type="text" name="worker_address" placeholder="부산광역시 사상구 …">
+      </div>
+      <div class="field-row">
+        <span class="field-icon">📱</span>
+        <span class="field-label">연락처</span>
+        <input class="field-input" type="text" name="worker_phone" placeholder="010-0000-0000">
+      </div>
+      <div class="field-row">
+        <span class="field-icon">👨‍👩‍👧</span>
+        <span class="field-label">관계</span>
+        <input class="field-input" type="text" name="worker_relation" placeholder="해당 시만 입력 (예: 자녀)">
+      </div>
+    </div>
+
+    <!-- 제1조 업무 -->
+    <div class="card">
+      <div class="card-title">제1조 — 근무장소 및 업무</div>
+      <div class="field-row">
+        <span class="field-icon">💼</span>
+        <span class="field-label">담당 업무</span>
+        <input class="field-input" type="text" name="job_duties" placeholder="고무라벨 생산 및 검수">
+      </div>
+    </div>
+
+    <!-- 제2조 계약기간 -->
+    <div class="card">
+      <div class="card-title">제2조 — 근로계약기간</div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">📅</span>
+          <span class="field-label">시작일</span>
+          <input class="field-input" type="date" name="contract_start">
         </div>
-      </section>
-
-      <section>
-        <h2>근로자 정보</h2>
-        <div class="grid-2">
-          <div class="field">
-            <label>근로자 이름</label>
-            <input type="text" name="worker_name" placeholder="홍길동">
-          </div>
-          <div class="field">
-            <label>주민등록번호</label>
-            <input type="text" name="worker_id_no" placeholder="000000-0000000">
-          </div>
-          <div class="field">
-            <label>주소</label>
-            <input type="text" name="worker_address" placeholder="부산광역시 사상구 ...">
-          </div>
-          <div class="field">
-            <label>연락처</label>
-            <input type="text" name="worker_phone" placeholder="010-0000-0000">
-          </div>
-          <div class="field">
-            <label>관계 <span class="hint">(해당 시만 입력)</span></label>
-            <input type="text" name="worker_relation" placeholder="예: 자녀">
-          </div>
+        <div class="half">
+          <span class="field-icon">📅</span>
+          <span class="field-label">종료일</span>
+          <input class="field-input" type="date" name="contract_end">
         </div>
-      </section>
-
-      <section>
-        <h2>제1조 — 근무장소 및 업무</h2>
-        <div class="field">
-          <label>맡을 업무</label>
-          <input type="text" name="job_duties" placeholder="고무라벨 생산 및 검수">
-        </div>
-      </section>
-
-      <section>
-        <h2>제2조 — 근로계약기간</h2>
-        <div class="grid-2">
-          <div class="field">
-            <label>시작일</label>
-            <input type="date" name="contract_start">
-          </div>
-          <div class="field">
-            <label>종료일</label>
-            <input type="date" name="contract_end">
-          </div>
-        </div>
-        <div class="field checkbox-field">
+      </div>
+      <div class="option-row">
+        <label class="toggle-check">
           <input type="checkbox" name="no_fixed_term" id="no_fixed_term">
-          <label for="no_fixed_term">기간 정함 없음</label>
+          <span class="toggle-box"></span>
+          기간의 정함이 없음
+        </label>
+      </div>
+      <div class="option-row">
+        <div class="option-row-label">수습기간</div>
+        <div class="radio-chips">
+          <input type="radio" name="probation" value="none" id="prob_none" checked>
+          <label class="chip-label" for="prob_none">없어요</label>
+          <input type="radio" name="probation" value="has" id="prob_has">
+          <label class="chip-label" for="prob_has">있어요</label>
         </div>
-
-        <div class="field" style="margin-top:12px">
-          <label>수습기간</label>
-          <div class="radio-group">
-            <label><input type="radio" name="probation" value="none" checked> 없어요</label>
-            <label><input type="radio" name="probation" value="has"> 있어요</label>
-          </div>
-        </div>
-        <div class="grid-2" id="probation-detail" style="display:none; margin-top:8px">
-          <div class="field">
-            <label>수습 기간 <span class="hint">(개월)</span></label>
+      </div>
+      <div class="expand-area" id="probation-detail">
+        <div class="expand-grid">
+          <div class="expand-field">
+            <label>수습 기간 (개월)</label>
             <input type="text" name="probation_months" placeholder="3">
           </div>
-          <div class="field">
-            <label>수습 중 임금 <span class="hint">(원)</span></label>
+          <div class="expand-field">
+            <label>수습 중 임금 (원)</label>
             <input type="text" name="probation_wage" placeholder="2,000,000">
           </div>
         </div>
-      </section>
+      </div>
+    </div>
 
-      <section>
-        <h2>제3조 — 근로시간 및 휴게시간</h2>
-        <div class="grid-2">
-          <div class="field">
-            <label>근무 시작</label>
-            <input type="time" name="work_start">
-          </div>
-          <div class="field">
-            <label>근무 종료</label>
-            <input type="time" name="work_end">
-          </div>
-          <div class="field">
-            <label>하루 근로시간 <span class="hint">(시간)</span></label>
-            <input type="number" name="daily_hours" placeholder="8" min="1" max="24">
-          </div>
-          <div class="field">
-            <label>주간 근로시간 <span class="hint">(시간)</span></label>
-            <input type="number" name="weekly_hours" placeholder="40" min="1" max="168">
-          </div>
-          <div class="field">
-            <label>휴게 시작</label>
-            <input type="time" name="break_start">
-          </div>
-          <div class="field">
-            <label>휴게 종료</label>
-            <input type="time" name="break_end">
-          </div>
-          <div class="field">
-            <label>주 근무일수 <span class="hint">(일)</span></label>
-            <input type="number" name="work_days_per_week" placeholder="5" min="1" max="7">
-          </div>
-          <div class="field">
-            <label>주휴일</label>
-            <input type="text" name="weekly_holiday" placeholder="일">
-          </div>
+    <!-- 제3조 근로시간 -->
+    <div class="card">
+      <div class="card-title">제3조 — 근로시간 및 휴게시간</div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">🕐</span>
+          <span class="field-label">출근</span>
+          <input class="field-input" type="time" name="work_start">
         </div>
-      </section>
+        <div class="half">
+          <span class="field-icon">🕔</span>
+          <span class="field-label">퇴근</span>
+          <input class="field-input" type="time" name="work_end">
+        </div>
+      </div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">⏱</span>
+          <span class="field-label">일 근로시간</span>
+          <input class="field-input" type="number" name="daily_hours" placeholder="8" min="1" max="24">
+        </div>
+        <div class="half">
+          <span class="field-icon">⏱</span>
+          <span class="field-label">주 근로시간</span>
+          <input class="field-input" type="number" name="weekly_hours" placeholder="40" min="1" max="168">
+        </div>
+      </div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">☕</span>
+          <span class="field-label">휴게 시작</span>
+          <input class="field-input" type="time" name="break_start">
+        </div>
+        <div class="half">
+          <span class="field-icon">☕</span>
+          <span class="field-label">휴게 종료</span>
+          <input class="field-input" type="time" name="break_end">
+        </div>
+      </div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">📆</span>
+          <span class="field-label">주 근무일수</span>
+          <input class="field-input" type="number" name="work_days_per_week" placeholder="5" min="1" max="7">
+        </div>
+        <div class="half">
+          <span class="field-icon">🌅</span>
+          <span class="field-label">주휴일</span>
+          <input class="field-input" type="text" name="weekly_holiday" placeholder="일">
+        </div>
+      </div>
+    </div>
 
-      <section>
-        <h2>제4조 — 임금</h2>
-        <div class="grid-2">
-          <div class="field">
-            <label>기본급 <span class="hint">(월, 원)</span></label>
-            <input type="text" name="basic_wage" placeholder="2,000,000">
-          </div>
-          <div class="field">
-            <label>시급 <span class="hint">(원)</span></label>
-            <input type="text" name="hourly_wage" placeholder="10,030">
-          </div>
-          <div class="field">
-            <label>식대 <span class="hint">(원)</span></label>
-            <input type="text" name="meal_allowance" placeholder="100,000">
-          </div>
-          <div class="field">
-            <label>기타 수당 <span class="hint">(없으면 비워도 돼요)</span></label>
-            <input type="text" name="other_allowance" placeholder="">
-          </div>
-          <div class="field">
-            <label>임금 합계 <span class="hint">(월, 원)</span></label>
-            <input type="text" name="total_wage" placeholder="2,100,000">
-          </div>
-          <div class="field">
-            <label>지급일 <span class="hint">(매월 몇 일)</span></label>
-            <input type="number" name="pay_day" placeholder="25" min="1" max="31">
-          </div>
+    <!-- 제4조 임금 -->
+    <div class="card">
+      <div class="card-title">제4조 — 임금</div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">💰</span>
+          <span class="field-label">기본급 (월)</span>
+          <input class="field-input" type="text" name="basic_wage" placeholder="2,000,000">
         </div>
-
-        <div class="field" style="margin-top:12px">
-          <label>지급 방법</label>
-          <div class="radio-group">
-            <label><input type="radio" name="pay_method" value="direct" checked> 직접지급</label>
-            <label><input type="radio" name="pay_method" value="bank"> 통장입금</label>
-          </div>
+        <div class="half">
+          <span class="field-icon">💰</span>
+          <span class="field-label">시급</span>
+          <input class="field-input" type="text" name="hourly_wage" placeholder="10,030">
         </div>
-        <div class="grid-2" id="bank-detail" style="display:none; margin-top:8px">
-          <div class="field">
-            <label>은행</label>
+      </div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">🍱</span>
+          <span class="field-label">식대</span>
+          <input class="field-input" type="text" name="meal_allowance" placeholder="100,000">
+        </div>
+        <div class="half">
+          <span class="field-icon">➕</span>
+          <span class="field-label">기타 수당</span>
+          <input class="field-input" type="text" name="other_allowance" placeholder="없으면 빈칸">
+        </div>
+      </div>
+      <div class="field-row two-col">
+        <div class="half">
+          <span class="field-icon">📊</span>
+          <span class="field-label">임금 합계</span>
+          <input class="field-input" type="text" name="total_wage" placeholder="2,100,000">
+        </div>
+        <div class="half">
+          <span class="field-icon">🗓</span>
+          <span class="field-label">지급일 (매월)</span>
+          <input class="field-input" type="number" name="pay_day" placeholder="25" min="1" max="31">
+        </div>
+      </div>
+      <div class="option-row">
+        <div class="option-row-label">지급 방법</div>
+        <div class="radio-chips">
+          <input type="radio" name="pay_method" value="direct" id="pay_direct" checked>
+          <label class="chip-label" for="pay_direct">직접지급</label>
+          <input type="radio" name="pay_method" value="bank" id="pay_bank">
+          <label class="chip-label" for="pay_bank">통장입금</label>
+        </div>
+      </div>
+      <div class="expand-area" id="bank-detail">
+        <div class="expand-grid">
+          <div class="expand-field">
+            <label>은행명</label>
             <input type="text" name="bank_name" placeholder="국민은행">
           </div>
-          <div class="field">
+          <div class="expand-field">
             <label>계좌번호</label>
             <input type="text" name="account_no" placeholder="000-000-000000">
           </div>
         </div>
-      </section>
-
-      <section>
-        <h2>제6조 — 사회보험</h2>
-        <p class="section-desc">해당하는 항목을 모두 선택해주세요.</p>
-        <div class="checkbox-group">
-          <label><input type="checkbox" name="ins_employment" checked> 고용보험</label>
-          <label><input type="checkbox" name="ins_industrial" checked> 산재보험</label>
-          <label><input type="checkbox" name="ins_pension" checked> 국민연금</label>
-          <label><input type="checkbox" name="ins_health" checked> 건강보험</label>
-        </div>
-      </section>
-
-      <section>
-        <h2>제7조 — 퇴직금 및 특약</h2>
-        <div class="field">
-          <label>퇴직금</label>
-          <div class="radio-group">
-            <label><input type="radio" name="severance" value="yes"> 해당해요</label>
-            <label><input type="radio" name="severance" value="no" checked> 해당 안 돼요</label>
-          </div>
-        </div>
-        <div class="field" style="margin-top:12px">
-          <label>특약사항 <span class="hint">(없으면 비워도 돼요)</span></label>
-          <textarea name="special_terms" rows="3" placeholder="특약사항을 입력해주세요"></textarea>
-        </div>
-      </section>
-
-      <section>
-        <h2>계약체결일</h2>
-        <div class="grid-3">
-          <div class="field">
-            <label>년</label>
-            <input type="number" name="contract_year" placeholder="2025" min="2000" max="2100">
-          </div>
-          <div class="field">
-            <label>월</label>
-            <input type="number" name="contract_month" placeholder="1" min="1" max="12">
-          </div>
-          <div class="field">
-            <label>일</label>
-            <input type="number" name="contract_day" placeholder="1" min="1" max="31">
-          </div>
-        </div>
-      </section>
-
-      <div class="submit-area">
-        <button type="button" id="preview-btn">미리보기</button>
-        <button type="button" id="docx-btn" class="secondary">DOCX 내려받기</button>
       </div>
+      <div class="note-text">※ 최저임금(2025년: 시간당 10,030원) 이상 지급 필수</div>
+    </div>
 
-    </form>
-  </div>
-
-  <!-- 미리보기 모달 -->
-  <div id="preview-modal" style="display:none">
-    <div class="modal-overlay" id="modal-overlay"></div>
-    <div class="modal-box">
-      <div class="modal-header">
-        <span>계약서 미리보기</span>
-        <button type="button" id="close-modal">✕</button>
-      </div>
-      <div class="modal-body">
-        <div id="contract-preview"></div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" id="pdf-btn">제출하기 (PDF 내려받기)</button>
-        <button type="button" id="close-modal2" class="secondary">닫기</button>
+    <!-- 제6조 사회보험 -->
+    <div class="card">
+      <div class="card-title">제6조 — 사회보험</div>
+      <div class="option-row">
+        <div class="option-row-label">해당하는 항목을 모두 선택해주세요</div>
+        <div class="radio-chips">
+          <input type="checkbox" name="ins_employment" id="ins_employment" checked>
+          <label class="chip-label" for="ins_employment">고용보험</label>
+          <input type="checkbox" name="ins_industrial" id="ins_industrial" checked>
+          <label class="chip-label" for="ins_industrial">산재보험</label>
+          <input type="checkbox" name="ins_pension" id="ins_pension" checked>
+          <label class="chip-label" for="ins_pension">국민연금</label>
+          <input type="checkbox" name="ins_health" id="ins_health" checked>
+          <label class="chip-label" for="ins_health">건강보험</label>
+        </div>
       </div>
     </div>
+
+    <!-- 제7조 퇴직금 / 특약 -->
+    <div class="card">
+      <div class="card-title">제7조 — 퇴직금 및 특약사항</div>
+      <div class="option-row">
+        <div class="option-row-label">퇴직금 해당 여부</div>
+        <div class="radio-chips">
+          <input type="radio" name="severance" value="yes" id="sev_yes">
+          <label class="chip-label" for="sev_yes">해당해요</label>
+          <input type="radio" name="severance" value="no" id="sev_no" checked>
+          <label class="chip-label" for="sev_no">해당 안 돼요</label>
+        </div>
+      </div>
+      <div class="note-text">※ 1주 15시간 이상, 1년 이상 근무 시 해당</div>
+      <div class="field-row">
+        <span class="field-icon">📝</span>
+        <span class="field-label">특약사항</span>
+        <textarea class="field-input" name="special_terms" rows="3" placeholder="특약사항이 있으면 입력해주세요"></textarea>
+      </div>
+    </div>
+
+    <!-- 계약체결일 -->
+    <div class="card">
+      <div class="card-title">계약체결일</div>
+      <div class="field-row" style="gap:6px">
+        <span class="field-icon">📋</span>
+        <input class="field-input" type="number" name="contract_year" placeholder="2025" min="2000" max="2100" style="text-align:center; max-width:80px">
+        <span style="color:#888; font-size:0.9rem">년</span>
+        <input class="field-input" type="number" name="contract_month" placeholder="1" min="1" max="12" style="text-align:center; max-width:56px">
+        <span style="color:#888; font-size:0.9rem">월</span>
+        <input class="field-input" type="number" name="contract_day" placeholder="1" min="1" max="31" style="text-align:center; max-width:56px">
+        <span style="color:#888; font-size:0.9rem">일</span>
+      </div>
+    </div>
+
+  </form>
+
+  <!-- 버튼 -->
+  <div class="btn-group" style="margin-top: 8px;">
+    <button type="button" class="btn-primary" id="preview-btn">미리보기</button>
+    <button type="button" class="btn-secondary" id="docx-btn">DOCX 내려받기</button>
   </div>
 
-  <script>
-    // ── 토글 ──────────────────────────────────────────────
-    document.querySelectorAll('[name="probation"]').forEach(el => {
-      el.addEventListener('change', () => {
-        document.getElementById('probation-detail').style.display =
-          el.value === 'has' && el.checked ? 'grid' : 'none';
-      });
+</div>
+
+<!-- 미리보기 모달 -->
+<div id="preview-modal" style="display:none">
+  <div class="modal-overlay" id="modal-overlay"></div>
+  <div class="modal-box">
+    <div class="modal-header">
+      <span>계약서 미리보기</span>
+      <button type="button" id="close-modal">✕</button>
+    </div>
+    <div class="modal-body">
+      <div id="contract-preview"></div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn-close-modal" id="close-modal2">닫기</button>
+      <button type="button" class="btn-pdf" id="pdf-btn">PDF 내려받기</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ── 토글 ──────────────────────────────────────────────
+  document.querySelectorAll('[name="probation"]').forEach(el => {
+    el.addEventListener('change', () => {
+      document.getElementById('probation-detail').classList.toggle(
+        'visible', el.value === 'has' && el.checked
+      );
     });
-    document.querySelectorAll('[name="pay_method"]').forEach(el => {
-      el.addEventListener('change', () => {
-        document.getElementById('bank-detail').style.display =
-          el.value === 'bank' && el.checked ? 'grid' : 'none';
-      });
+  });
+  document.querySelectorAll('[name="pay_method"]').forEach(el => {
+    el.addEventListener('change', () => {
+      document.getElementById('bank-detail').classList.toggle(
+        'visible', el.value === 'bank' && el.checked
+      );
     });
+  });
 
-    // ── 폼 데이터 수집 ───────────────────────────────────
-    function getFormData() {
-      const f = document.getElementById('contract-form');
-      const d = {};
-      new FormData(f).forEach((v, k) => { d[k] = v; });
-      ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
-        d[k] = f.querySelector(`[name="${k}"]`).checked;
-      });
-      d.probation_none = d.probation === 'none';
-      d.pay_direct = d.pay_method === 'direct';
-      d.pay_bank = d.pay_method === 'bank';
-      d.severance_yes = d.severance === 'yes';
-      d.severance_no = d.severance === 'no';
-      return d;
-    }
+  // ── 폼 데이터 수집 ───────────────────────────────────
+  function getFormData() {
+    const f = document.getElementById('contract-form');
+    const d = {};
+    new FormData(f).forEach((v, k) => { d[k] = v; });
+    ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
+      d[k] = f.querySelector(`[name="${k}"]`).checked;
+    });
+    d.probation_none = d.probation === 'none';
+    d.pay_direct = d.pay_method === 'direct';
+    d.pay_bank = d.pay_method === 'bank';
+    d.severance_yes = d.severance === 'yes';
+    d.severance_no = d.severance === 'no';
+    return d;
+  }
 
-    const CHK = '■', UNCHK = '□';
-    function chk(bool) { return bool ? CHK : UNCHK; }
+  const CHK = '■', UNCHK = '□';
+  function chk(bool) { return bool ? CHK : UNCHK; }
 
-    // ── 계약서 HTML 생성 ──────────────────────────────────
-    function buildPreviewHTML(d) {
-      const insLine = [
-        `${chk(d.ins_employment)} 고용보험`,
-        `${chk(d.ins_industrial)} 산재보험`,
-        `${chk(d.ins_pension)} 국민연금`,
-        `${chk(d.ins_health)} 건강보험`,
-      ].join('   ');
+  // ── 계약서 HTML 생성 ──────────────────────────────────
+  function buildPreviewHTML(d) {
+    const insLine = [
+      `${chk(d.ins_employment)} 고용보험`,
+      `${chk(d.ins_industrial)} 산재보험`,
+      `${chk(d.ins_pension)} 국민연금`,
+      `${chk(d.ins_health)} 건강보험`,
+    ].join('   ');
 
-      const probLine = d.probation_none
-        ? `${CHK} 없음   ${UNCHK} 있음`
-        : `${UNCHK} 없음   ${CHK} 있음 (${d.probation_months||''}개월, 수습 중 임금: ${d.probation_wage||''}원)`;
+    const probLine = d.probation_none
+      ? `${CHK} 없음   ${UNCHK} 있음`
+      : `${UNCHK} 없음   ${CHK} 있음 (${d.probation_months||''}개월, 수습 중 임금: ${d.probation_wage||''}원)`;
 
-      const periodLine = `${d.contract_start||''} 부터  ${d.contract_end||''} 까지  ${chk(d.no_fixed_term)} 기간의 정함이 없음`;
+    const periodLine = `${d.contract_start||''} 부터  ${d.contract_end||''} 까지  ${chk(d.no_fixed_term)} 기간의 정함이 없음`;
+    const payLine = `${chk(d.pay_direct)} 직접지급   ${chk(d.pay_bank)} 통장입금  (은행명: ${d.bank_name||''}, 계좌번호: ${d.account_no||''})`;
 
-      const payLine = `${chk(d.pay_direct)} 직접지급   ${chk(d.pay_bank)} 통장입금  (은행명: ${d.bank_name||''}, 계좌번호: ${d.account_no||''})`;
-
-      return `
+    return `
 <div class="doc-wrap">
   <h1 class="doc-title">근 로 계 약 서</h1>
   <p class="doc-sub">(근로기준법 제17조에 따른 서면 근로계약)</p>
@@ -353,8 +408,8 @@
 
   <p class="doc-article">제5조 【연차유급휴가】</p>
   <p class="doc-text">연차유급휴가는 근로기준법에서 정하는 바에 따라 부여한다.</p>
-  <p class="doc-text">&bull; 1년 미만 근무: 매 1개월 개근 시 1일 (최대 11일)</p>
-  <p class="doc-text">&bull; 1년 이상 근무: 15일 (이후 2년마다 1일 가산, 최대 25일)</p>
+  <p class="doc-text">• 1년 미만 근무: 매 1개월 개근 시 1일 (최대 11일)</p>
+  <p class="doc-text">• 1년 이상 근무: 15일 (이후 2년마다 1일 가산, 최대 25일)</p>
 
   <p class="doc-article">제6조 【사회보험 적용】</p>
   <p class="doc-text">${insLine}</p>
@@ -380,58 +435,58 @@
     <tr><td>연락처:　</td><td>연락처: ${d.worker_phone||''}</td></tr>
   </table>
 </div>`;
-    }
+  }
 
-    // ── 미리보기 열기 ─────────────────────────────────────
-    document.getElementById('preview-btn').addEventListener('click', () => {
-      const d = getFormData();
-      document.getElementById('contract-preview').innerHTML = buildPreviewHTML(d);
-      document.getElementById('preview-modal').style.display = 'flex';
+  // ── 미리보기 열기 ─────────────────────────────────────
+  document.getElementById('preview-btn').addEventListener('click', () => {
+    const d = getFormData();
+    document.getElementById('contract-preview').innerHTML = buildPreviewHTML(d);
+    document.getElementById('preview-modal').style.display = 'flex';
+  });
+
+  // ── 모달 닫기 ─────────────────────────────────────────
+  ['close-modal','close-modal2','modal-overlay'].forEach(id => {
+    document.getElementById(id).addEventListener('click', () => {
+      document.getElementById('preview-modal').style.display = 'none';
     });
+  });
 
-    // ── 모달 닫기 ─────────────────────────────────────────
-    ['close-modal','close-modal2','modal-overlay'].forEach(id => {
-      document.getElementById(id).addEventListener('click', () => {
-        document.getElementById('preview-modal').style.display = 'none';
-      });
+  // ── PDF 내보내기 ──────────────────────────────────────
+  document.getElementById('pdf-btn').addEventListener('click', () => {
+    const d = getFormData();
+    const worker = d.worker_name || '근로자';
+    const element = document.getElementById('contract-preview');
+    html2pdf().set({
+      margin: [10, 12, 10, 12],
+      filename: `근로계약서_${worker}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    }).from(element).save();
+  });
+
+  // ── DOCX 내려받기 ─────────────────────────────────────
+  document.getElementById('docx-btn').addEventListener('click', () => {
+    const f = document.getElementById('contract-form');
+    const tmp = document.createElement('form');
+    tmp.method = 'POST';
+    tmp.action = '/generate';
+    new FormData(f).forEach((v, k) => {
+      const inp = document.createElement('input');
+      inp.type = 'hidden'; inp.name = k; inp.value = v;
+      tmp.appendChild(inp);
     });
-
-    // ── PDF 내보내기 ──────────────────────────────────────
-    document.getElementById('pdf-btn').addEventListener('click', () => {
-      const d = getFormData();
-      const worker = d.worker_name || '근로자';
-      const element = document.getElementById('contract-preview');
-      html2pdf().set({
-        margin: [10, 12, 10, 12],
-        filename: `근로계약서_${worker}.pdf`,
-        image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { scale: 2, useCORS: true },
-        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      }).from(element).save();
-    });
-
-    // ── DOCX 내려받기 (서버 POST) ─────────────────────────
-    document.getElementById('docx-btn').addEventListener('click', () => {
-      const f = document.getElementById('contract-form');
-      const tmp = document.createElement('form');
-      tmp.method = 'POST';
-      tmp.action = '/generate';
-      new FormData(f).forEach((v, k) => {
+    ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
+      if (f.querySelector(`[name="${k}"]`).checked) {
         const inp = document.createElement('input');
-        inp.type = 'hidden'; inp.name = k; inp.value = v;
+        inp.type = 'hidden'; inp.name = k; inp.value = 'on';
         tmp.appendChild(inp);
-      });
-      ['no_fixed_term','ins_employment','ins_industrial','ins_pension','ins_health'].forEach(k => {
-        if (f.querySelector(`[name="${k}"]`).checked) {
-          const inp = document.createElement('input');
-          inp.type = 'hidden'; inp.name = k; inp.value = 'on';
-          tmp.appendChild(inp);
-        }
-      });
-      document.body.appendChild(tmp);
-      tmp.submit();
-      document.body.removeChild(tmp);
+      }
     });
-  </script>
+    document.body.appendChild(tmp);
+    tmp.submit();
+    document.body.removeChild(tmp);
+  });
+</script>
 </body>
 </html>
